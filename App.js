@@ -1,21 +1,42 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
+import  EmiCalculator  from './assets/Componets/EmiCalculator.js'
+import RegisterPage from './assets/Componets/RegisterPage.js';
+import LoginPage from './assets/Componets/LoginPage.js'
+import HomePage from './assets/Componets/HomePage'
+const Stack = createStackNavigator();
 
+Stack.navigationOptions = ({navigation}) => {
+  return {
+    headerMode: false
+  }
+}
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+   <NavigationContainer>
+     <Stack.Navigator>
+     <Stack.Screen name = 'Login'
+    
+       component = {LoginPage}
+       />
+       <Stack.Screen name = 'Home'
+       component = {HomePage}
+       options = {{
+        headerLeft: (props) => (
+          <HeaderBackButton {...props} onPress={() => null} />)
+       }}
+       />
+       <Stack.Screen name = 'Register'
+       component = {RegisterPage}
+       />
+       <Stack.Screen name = 'EMI Calculator'
+       component = {EmiCalculator}
+       />
+     </Stack.Navigator>
+   </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
